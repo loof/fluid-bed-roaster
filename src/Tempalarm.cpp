@@ -6,13 +6,19 @@
 #include "Led.h"
 #include "Tempalarm.h"
 
+#define STATE_OK 1
+#define STATE_ALARM 2
+#define STATE_WAITING_FOR_OK 3
+
 namespace coffeeroasters {
 
     Led _led(PIN_R, PIN_G, PIN_B, COLOR_R, COLOR_G, COLOR_B);
-    unsigned long _alarm_millis;
+    unsigned long _millis_since_waiting_for_ok;
+
     float _old_value;
     bool _is_first = true;
     bool _is_alarm_on = false;
+    int _current_state = STATE_OK;
 
     void Tempalarm::init() {
         _led.init();
@@ -24,13 +30,23 @@ namespace coffeeroasters {
             _is_first = false;
             _old_value = new_value;
         } else {
-            if (new_value < _old_value && !_is_alarm_on) {
-                _led.set_on(false);
-                _alarm_millis = millis();
-                _is_alarm_on = true;
-            } else if (new_value > _old_value && millis() - _alarm_millis >= OK_VALUE_KEEP_TIME && _is_alarm_on) {
-                _led.set_on(true);
-                _is_alarm_on = false;
+            if (_current_state == STATE_OK) {
+                if (new_value < _old_value) {
+                    _current_state = STATE_ALARM;
+                    _led.set_on(false);
+                }
+            } else if (_current_state == STATE_ALARM) {
+                if (new_value > _old_value) {
+                    _current_state = STATE_WAITING_FOR_OK;
+                    _millis_since_waiting_for_ok = millis();
+                }
+            } else if (_current_state == STATE_WAITING_FOR_OK){
+                if (new_value > _old_value) {
+                    if ((millis() - _millis_since_waiting_for_ok) >= OK_VALUE_KEEP_TIME) {
+                        _current_state = STATE_OK;
+                        _led.set_on(true);
+                    }
+                }
             }
             _old_value = new_value;
         }

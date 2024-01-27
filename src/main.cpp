@@ -222,7 +222,7 @@ int32_t ftimes_old[NC]; // for calculating derivative
 float RoR[NC]; // final RoR values
 uint8_t actv[NC];  // identifies channel status, 0 = inactive, n = physical channel + 1
 
-coffeeroasters::Tempalarm _ror_observer;
+
 
 
 
@@ -283,6 +283,7 @@ uint32_t counter; // second counter
 uint32_t next_loop_time; //
 boolean first;
 uint16_t looptime = 500;
+coffeeroasters::Tempalarm _ror_observer;
 
 // class objects
 cADC adc( A_ADC ); // MCP3424

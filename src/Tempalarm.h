@@ -10,7 +10,7 @@
 
 #define CRITICAL_ROR_DELTA -1
 #define OK_ROR_DELTA 1
-#define OK_VALUE_KEEP_TIME 3000
+#define OK_VALUE_KEEP_TIME 2000
 
 namespace coffeeroasters {
     class Tempalarm {
