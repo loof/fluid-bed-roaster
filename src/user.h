@@ -88,7 +88,7 @@
 ////////////////////
 // Physical input channel for RoR display on LCD
 // Corresponds to Thermocouple inputs T1-T4
-#define ROR_CHAN 2
+#define ROR_CHAN 1
 
 ////////////////////
 // PID Control Options

@@ -208,6 +208,8 @@
 #define DELIM "; ,=" // command line parameter delimiters
 
 #include <mcEEPROM.h>
+#include "Tempalarm.h"
+
 mcEEPROM eeprom;
 calBlock caldata;
 
@@ -219,6 +221,10 @@ int32_t ftemps_old[NC]; // for calculating derivative
 int32_t ftimes_old[NC]; // for calculating derivative
 float RoR[NC]; // final RoR values
 uint8_t actv[NC];  // identifies channel status, 0 = inactive, n = physical channel + 1
+
+coffeeroasters::Tempalarm _ror_observer;
+
+
 
 #ifdef CELSIUS // only affects startup conditions
 boolean Cscale = true;
@@ -276,7 +282,7 @@ char profile_CorF; // profile temps stored as Centigrade or Fahrenheit
 uint32_t counter; // second counter
 uint32_t next_loop_time; //
 boolean first;
-uint16_t looptime = 1000;
+uint16_t looptime = 500;
 
 // class objects
 cADC adc( A_ADC ); // MCP3424
@@ -573,6 +579,7 @@ void get_samples() // this function talks to the amb sensor and ADC via I2C
             if ( !first ) { // on first loop dont calc RoR
                 rx = calcRise( ftemps_old[k], ftemps[k], ftimes_old[k], ftimes[k] );
                 RoR[k] = fRoR[k].doFilter( rx / D_MULT ) * D_MULT; // perform post-filtering on RoR values
+
             }
         }
     }
@@ -1519,6 +1526,8 @@ void setup()
     pinMode(ENTER_BUTTON, INPUT_PULLUP);
 #endif
 
+    _ror_observer.init();
+
     first = true;
     counter = 3; // start counter at 3 to match with Artisan. Probably a better way to sync with Artisan???
     next_loop_time = millis() + looptime; // needed??
@@ -1620,7 +1629,11 @@ void loop()
 #if not ( defined ROASTLOGGER || defined ARTISAN || defined ANDROID ) // Stops buttons being read unless in standalone mode. Added to fix crash (due to low memory?).
         checkButtonPins();
 #endif
+
+
     }
+    _ror_observer.update(T[ROR_CHAN -1]);
+
 
     // Set next loop time and increment counter
     next_loop_time = next_loop_time + looptime; // add time until next loop
