@@ -7,14 +7,16 @@
 
 #include "Arduino.h"
 #include "Led.h"
-
-#define OK_VALUE_KEEP_TIME 2000
+#include "IntervalBuzzer.h"
 
 namespace coffeeroasters {
     class Tempalarm {
     public:
         void init();
         void update(float new_value);
+    private:
+        IntervalBuzzer _buzzer;
+        Led _led;
     };
 }
 

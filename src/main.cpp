@@ -283,7 +283,7 @@ uint32_t counter; // second counter
 uint32_t next_loop_time; //
 boolean first;
 uint16_t looptime = 500;
-coffeeroasters::Tempalarm _ror_observer;
+coffeeroasters::Tempalarm _temperature_alarm_when_no_gas;
 
 // class objects
 cADC adc( A_ADC ); // MCP3424
@@ -1527,7 +1527,7 @@ void setup()
     pinMode(ENTER_BUTTON, INPUT_PULLUP);
 #endif
 
-    _ror_observer.init();
+    _temperature_alarm_when_no_gas.init();
 
     first = true;
     counter = 3; // start counter at 3 to match with Artisan. Probably a better way to sync with Artisan???
@@ -1622,6 +1622,8 @@ void loop()
     // wait until looptiom is expired. Check serial and buttons while waiting
     while( millis() < next_loop_time ) {
         checkSerial();  // Has a command been received?
+        _temperature_alarm_when_no_gas.update(T[ROR_CHAN - 1]);
+
 #ifdef LCDAPTER
         #if not ( defined ROASTLOGGER || defined ARTISAN || defined ANDROID ) // Stops buttons being read unless in standalone mode. Added to fix crash (due to low memory?).
       checkButtons();
@@ -1633,7 +1635,6 @@ void loop()
 
 
     }
-    _ror_observer.update(T[ROR_CHAN -1]);
 
 
     // Set next loop time and increment counter

@@ -11,6 +11,14 @@
 #ifndef USER_H
 #define USER_H
 
+
+#define PIN_BUZZER_GAS_ALARM 4 // pin for the gas alarm buzzer
+#define PIN_LED_GAS_ALARM 2 // Pin for the gas alarm led
+
+#define GAS_ALARM_OK_VALUE_KEEP_TIME 2000 // is has to get this amount of time hotter before gas alarm turns off
+#define GAS_ALARM_BUZZER_INTERVAL_TIME 400 // Interval for gas alarm buzzer
+
+
 ////////////////////
 // Roasting software
 // Comment out all if using TC4 stand alone
