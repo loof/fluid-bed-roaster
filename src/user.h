@@ -16,7 +16,7 @@
 #define PIN_LED_GAS_ALARM 2 // Pin for the gas alarm led
 #define PIN_GAS_ALARM_MUTE_BUTTON 7 // Pin for button muting the gas alarm
 
-#define GAS_ALARM_OK_VALUE_KEEP_TIME 2000 // is has to get this amount of time hotter before gas alarm turns off
+#define GAS_ALARM_OK_VALUE_KEEP_TIME 5000 // is has to get this amount of time hotter before gas alarm turns off
 #define GAS_ALARM_BUZZER_INTERVAL_TIME 400 // Interval for gas alarm buzzer
 
 
