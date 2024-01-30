@@ -11,7 +11,7 @@ namespace coffeeroasters {
         _time_elapsed = _time_elapsed + (_new_millis - _old_millis);
         _old_millis = _new_millis;
         if (_time_elapsed >= GAS_ALARM_BUZZER_INTERVAL_TIME) {
-            if (_is_on) {
+            if (is_on()) {
                 _set_sounding(!_is_sounding);
             }
 

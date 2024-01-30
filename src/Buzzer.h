@@ -12,8 +12,10 @@ namespace coffeeroasters {
     public:
         static void init();
         void set_on(bool is_on);
+        bool is_on();
         void toggle();
-        bool _is_on;
+    private:
+        bool _is_on = false;
     };
 
 } // coffeeroasters

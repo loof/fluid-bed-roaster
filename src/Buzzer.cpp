@@ -20,6 +20,12 @@ namespace coffeeroasters {
         }
     }
 
+
+    bool Buzzer::is_on() {
+        return _is_on;
+    }
+
+
     void Buzzer::toggle() {
         set_on(!_is_on);
         _is_on = !_is_on;

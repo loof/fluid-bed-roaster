@@ -7,24 +7,16 @@
 #include "Led.h"
 #include "Tempalarm.h"
 
-#define STATE_OK 1
-#define STATE_ALARM 2
-#define STATE_WAITING_FOR_OK 3
+
 
 namespace coffeeroasters {
-
-    unsigned long _millis_since_waiting_for_ok;
-
-    float _old_value;
-    bool _is_first = true;
-    bool _is_alarm_on = false;
-    int _current_state = STATE_OK;
 
     void Tempalarm::init() {
         _led.init();
         _led.set_on(true);
         _buzzer.init();
         _buzzer.set_on(false);
+        _button.init();
     }
 
     void Tempalarm::update(float new_value) {
@@ -33,6 +25,9 @@ namespace coffeeroasters {
             _old_value = new_value;
         } else {
             _buzzer.update();
+            if (_button.is_pressed()) {
+                _buzzer.set_on(false);
+            }
             if (_current_state == STATE_OK) {
                 if (new_value < _old_value) {
                     _current_state = STATE_ALARM;
