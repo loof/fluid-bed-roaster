@@ -11,7 +11,7 @@ namespace coffeeroasters {
 
     void Tempalarm::init() {
         Led::init();
-        _buzzer.init();
+        IntervalBuzzer::init();
         Button::init();
         _led.setOn(true);
         _buzzer.setOn(false);
@@ -22,7 +22,6 @@ namespace coffeeroasters {
             _isFirst = false;
             _oldValue = newValue;
         } else {
-            _buzzer.update();
             if (Button::isPressed()) {
                 _buzzer.setOn(false);
             }
@@ -38,12 +37,14 @@ namespace coffeeroasters {
                     _millisSinceWaitingForOk = millis();
                 }
             } else if (_currentState == STATE_WAITING_FOR_OK){
-                if (newValue > _oldValue) {
+                if (newValue >= _oldValue) {
                     if ((millis() - _millisSinceWaitingForOk) >= GAS_ALARM_OK_VALUE_KEEP_TIME) {
                         _currentState = STATE_OK;
                         _led.setOn(true);
                         _buzzer.setOn(false);
                     }
+                } else {
+                    _currentState = STATE_ALARM;
                 }
             }
             _oldValue = newValue;

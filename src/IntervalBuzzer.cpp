@@ -7,7 +7,7 @@
 
 namespace coffeeroasters {
 
-    void Buzzer::init() {
+    void IntervalBuzzer::init() {
         pinMode(PIN_BUZZER_GAS_ALARM, OUTPUT);
     }
 
@@ -16,7 +16,7 @@ namespace coffeeroasters {
         _timeElapsed = _timeElapsed + (_newMillis - _oldMillis);
         _oldMillis = _newMillis;
         if (_timeElapsed >= GAS_ALARM_BUZZER_INTERVAL_TIME) {
-            if (isOn()) {
+            if (_isOn) {
                 _setSounding(!_isSounding);
             }
 

@@ -19,7 +19,6 @@ namespace coffeeroasters {
     public:
         void init();
         void update(float newValue);
-        void blah(Led* led);
     private:
         IntervalBuzzer _buzzer;
         Led _led;

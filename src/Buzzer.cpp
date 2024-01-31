@@ -11,6 +11,7 @@ namespace coffeeroasters {
     void Buzzer::init() {
         pinMode(PIN_BUZZER_GAS_ALARM, OUTPUT);
     }
+
     void Buzzer::setOn(bool isOn) {
         _isOn = isOn;
     }
@@ -25,7 +26,7 @@ namespace coffeeroasters {
     }
 
     void Buzzer::update() {
-        if (isOn) {
+        if (isOn()) {
             digitalWrite(PIN_BUZZER_GAS_ALARM, HIGH);
         } else {
             digitalWrite(PIN_BUZZER_GAS_ALARM, LOW);

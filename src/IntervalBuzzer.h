@@ -13,7 +13,7 @@ namespace coffeeroasters {
     class IntervalBuzzer {
 
     public:
-        void init();
+        static void init();
         void update();
         bool isOn();
         void setOn(bool isOn);
