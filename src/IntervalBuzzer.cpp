@@ -6,24 +6,45 @@
 #include "user.h"
 
 namespace coffeeroasters {
+
+    void Buzzer::init() {
+        pinMode(PIN_BUZZER_GAS_ALARM, OUTPUT);
+    }
+
     void IntervalBuzzer::update() {
-        _new_millis = millis();
-        _time_elapsed = _time_elapsed + (_new_millis - _old_millis);
-        _old_millis = _new_millis;
-        if (_time_elapsed >= GAS_ALARM_BUZZER_INTERVAL_TIME) {
-            if (is_on()) {
-                _set_sounding(!_is_sounding);
+        _newMillis = millis();
+        _timeElapsed = _timeElapsed + (_newMillis - _oldMillis);
+        _oldMillis = _newMillis;
+        if (_timeElapsed >= GAS_ALARM_BUZZER_INTERVAL_TIME) {
+            if (isOn()) {
+                _setSounding(!_isSounding);
             }
 
-            _time_elapsed = 0;
+            _timeElapsed = 0;
         }
-    }
-    void IntervalBuzzer::_set_sounding(bool is_sounding) {
-        _is_sounding = is_sounding;
-        if (is_sounding) {
-            digitalWrite(PIN_BUZZER_GAS_ALARM, HIGH);
+        if (_isOn) {
+            if (_isSounding) {
+                digitalWrite(PIN_BUZZER_GAS_ALARM, HIGH);
+            } else {
+                digitalWrite(PIN_BUZZER_GAS_ALARM, LOW);
+            }
         } else {
             digitalWrite(PIN_BUZZER_GAS_ALARM, LOW);
         }
     }
+
+
+    void IntervalBuzzer::_setSounding(bool is_sounding) {
+        _isSounding = is_sounding;
+    }
+
+    bool IntervalBuzzer::isOn() {
+        return _isOn;
+    }
+
+    void IntervalBuzzer::setOn(bool isOn) {
+        _isOn = isOn;
+    }
+
+
 } // coffeeroasters

@@ -7,48 +7,48 @@
 #include "Led.h"
 #include "Tempalarm.h"
 
-
-
 namespace coffeeroasters {
 
     void Tempalarm::init() {
-        _led.init();
-        _led.set_on(true);
+        Led::init();
         _buzzer.init();
-        _buzzer.set_on(false);
-        _button.init();
+        Button::init();
+        _led.setOn(true);
+        _buzzer.setOn(false);
     }
 
-    void Tempalarm::update(float new_value) {
-        if (_is_first) {
-            _is_first = false;
-            _old_value = new_value;
+    void Tempalarm::update(float newValue) {
+        if (_isFirst) {
+            _isFirst = false;
+            _oldValue = newValue;
         } else {
             _buzzer.update();
-            if (_button.is_pressed()) {
-                _buzzer.set_on(false);
+            if (Button::isPressed()) {
+                _buzzer.setOn(false);
             }
-            if (_current_state == STATE_OK) {
-                if (new_value < _old_value) {
-                    _current_state = STATE_ALARM;
-                    _led.set_on(false);
-                    _buzzer.set_on(true);
+            if (_currentState == STATE_OK) {
+                if (newValue < _oldValue) {
+                    _currentState = STATE_ALARM;
+                    _led.setOn(false);
+                    _buzzer.setOn(true);
                 }
-            } else if (_current_state == STATE_ALARM) {
-                if (new_value > _old_value) {
-                    _current_state = STATE_WAITING_FOR_OK;
-                    _millis_since_waiting_for_ok = millis();
+            } else if (_currentState == STATE_ALARM) {
+                if (newValue > _oldValue) {
+                    _currentState = STATE_WAITING_FOR_OK;
+                    _millisSinceWaitingForOk = millis();
                 }
-            } else if (_current_state == STATE_WAITING_FOR_OK){
-                if (new_value > _old_value) {
-                    if ((millis() - _millis_since_waiting_for_ok) >= GAS_ALARM_OK_VALUE_KEEP_TIME) {
-                        _current_state = STATE_OK;
-                        _led.set_on(true);
-                        _buzzer.set_on(false);
+            } else if (_currentState == STATE_WAITING_FOR_OK){
+                if (newValue > _oldValue) {
+                    if ((millis() - _millisSinceWaitingForOk) >= GAS_ALARM_OK_VALUE_KEEP_TIME) {
+                        _currentState = STATE_OK;
+                        _led.setOn(true);
+                        _buzzer.setOn(false);
                     }
                 }
             }
-            _old_value = new_value;
+            _oldValue = newValue;
         }
+        _led.update();
+        _buzzer.update();
     }
 }

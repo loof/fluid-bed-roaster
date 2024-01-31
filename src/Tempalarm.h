@@ -18,15 +18,16 @@ namespace coffeeroasters {
     class Tempalarm {
     public:
         void init();
-        void update(float new_value);
+        void update(float newValue);
+        void blah(Led* led);
     private:
         IntervalBuzzer _buzzer;
         Led _led;
         Button _button;
-        unsigned long _millis_since_waiting_for_ok;
-        float _old_value;
-        bool _is_first = true;
-        int _current_state = STATE_OK;
+        unsigned long _millisSinceWaitingForOk = 0;
+        float _oldValue = 0;
+        bool _isFirst = true;
+        int _currentState = STATE_OK;
     };
 }
 

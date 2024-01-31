@@ -10,7 +10,7 @@ namespace coffeeroasters {
     void Button::init() {
         pinMode(PIN_GAS_ALARM_MUTE_BUTTON, INPUT_PULLUP);
     }
-    bool Button::is_pressed() {
+    bool Button::isPressed() {
         return !digitalRead(PIN_GAS_ALARM_MUTE_BUTTON);
     }
 } // coffeeroasters

@@ -12,12 +12,12 @@ namespace coffeeroasters {
 
     class Flamealarm {
 
-        Buzzer _buzzer;
-        FlameSensor _flame_sensor;
-
     public:
-        void init();
+        static void init();
         void update();
+    private:
+        Buzzer _buzzer;
+        FlameSensor _flameSensor;
     };
 
 } // coffeeroasters

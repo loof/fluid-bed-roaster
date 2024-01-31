@@ -11,8 +11,8 @@ namespace coffeeroasters {
 
     class FlameSensor {
     public:
-        void init();
-        bool is_flame_detected();
+        static void init();
+        static bool isFlameDetected();
     };
 
 } // coffeeroasters

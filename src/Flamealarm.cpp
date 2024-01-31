@@ -7,11 +7,12 @@
 namespace coffeeroasters {
 
     void Flamealarm::init() {
-        _flame_sensor.init();
-        _buzzer.init();
+        FlameSensor::init();
+        Buzzer::init();
     }
 
     void Flamealarm::update() {
-        _buzzer.set_on(!_flame_sensor.is_flame_detected());
+        _buzzer.setOn(!FlameSensor::isFlameDetected());
+        _buzzer.update();
     }
 } // coffeeroasters

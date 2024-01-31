@@ -10,7 +10,7 @@ namespace coffeeroasters {
         pinMode(FLAME_SENSOR, INPUT);
     }
 
-    bool FlameSensor::is_flame_detected() {
+    bool FlameSensor::isFlameDetected() {
         return !digitalRead(FLAME_SENSOR);
     }
 } // coffeeroasters

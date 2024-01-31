@@ -9,8 +9,8 @@ namespace coffeeroasters {
 
     class Button {
     public:
-        void init();
-        bool is_pressed();
+        static void init();
+        static bool isPressed();
     };
 
 } // coffeeroasters

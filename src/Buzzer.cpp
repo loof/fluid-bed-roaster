@@ -11,23 +11,25 @@ namespace coffeeroasters {
     void Buzzer::init() {
         pinMode(PIN_BUZZER_GAS_ALARM, OUTPUT);
     }
-    void Buzzer::set_on(bool is_on) {
-        _is_on = is_on;
-        if (is_on) {
+    void Buzzer::setOn(bool isOn) {
+        _isOn = isOn;
+    }
+
+    bool Buzzer::isOn() {
+        return _isOn;
+    }
+
+    void Buzzer::toggle() {
+        setOn(!_isOn);
+        _isOn = !_isOn;
+    }
+
+    void Buzzer::update() {
+        if (isOn) {
             digitalWrite(PIN_BUZZER_GAS_ALARM, HIGH);
         } else {
             digitalWrite(PIN_BUZZER_GAS_ALARM, LOW);
         }
     }
 
-
-    bool Buzzer::is_on() {
-        return _is_on;
-    }
-
-
-    void Buzzer::toggle() {
-        set_on(!_is_on);
-        _is_on = !_is_on;
-    }
 } // coffeeroasters

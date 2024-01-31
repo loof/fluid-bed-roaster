@@ -15,12 +15,13 @@ namespace coffeeroasters {
 
     class Led {
 
-        bool _is_on;
-
     public:
-        void set_on(bool is_on);
+        void setOn(bool isOn);
         void toggle();
-        void init();
+        static void init();
+        void update();
+    private:
+        bool _isOn = false;
     };
 
 } // coffeeroasters

@@ -13,23 +13,21 @@ namespace coffeeroasters {
         pinMode(PIN_LED_GAS_ALARM, OUTPUT);
     }
 
-    void Led::set_on(bool is_on) {
-        _is_on = is_on;
-        if (is_on) {
+    void Led::setOn(bool isOn) {
+        _isOn = isOn;
+    }
+
+    void Led::toggle() {
+        setOn(!_isOn);
+    }
+
+    void Led::update() {
+        if (_isOn) {
             digitalWrite(PIN_LED_GAS_ALARM, HIGH);
         } else {
             digitalWrite(PIN_LED_GAS_ALARM, LOW);
         }
     }
 
-    void Led::toggle() {
-        if (_is_on) {
-            digitalWrite(PIN_LED_GAS_ALARM, LOW);
-            _is_on = false;
-        } else {
-            digitalWrite(PIN_LED_GAS_ALARM, HIGH);
-            _is_on = true;
-        }
-    }
 
 } // coffeeroasters
