@@ -156,7 +156,7 @@
 // default values for systems without calibration values stored in EEPROM
 #define CAL_GAIN 1.00 // you may substitute a known gain adjustment from calibration
 #define UV_OFFSET 0 // you may substitute a known value for uV offset in ADC
-#define AMB_OFFSET 0.0 // you may substitute a known value for amb temp offset (Celsius)
+#define AMB_OFFSET -5.5 // you may substitute a known value for amb temp offset (Celsius)
 //#define AMB_OFFSET -2.2 // Söfu hani uf mim popper roaster
 
 ////////////////////
