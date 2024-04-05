@@ -165,10 +165,10 @@
 // choose one of the following for the PWM time base for heater output on OT1 or OT2
 //#define TIME_BASE pwmN4sec  // recommended for Hottop D which has mechanical relay
 //#define TIME_BASE pwmN2sec
-#define TIME_BASE pwmN1Hz  // recommended for most electric heaters controlled by standard SSR
+//#define TIME_BASE pwmN1Hz  // recommended for most electric heaters controlled by standard SSR
 //#define TIME_BASE pwmN2Hz
 //#define TIME_BASE pwmN4Hz
-//#define TIME_BASE pwmN8Hz 
+#define TIME_BASE pwmN8Hz
 // The faster frequencies below are for advanced users only, and will require changes to the PWM16 Library
 //#define TIME_BASE 15 // approx. 977 Hz
 //#define TIME_BASE 7 // approx. 1.95kHz
